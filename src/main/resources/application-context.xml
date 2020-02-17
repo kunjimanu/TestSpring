@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="Greeter" class="edu.wctc.GreetingServiceImpl">
+    </bean>
+
+
+    <!-- Load properties file: book.properties -->
+    <context:property-placeholder location="classpath:book.properties"/>
+
+    <!-- Define beans for services -->
+    <bean id="myloggerService" class="edu.wctc.spring.services.ConsoleLogger">
+    </bean>
+
+    <bean id="mybook" class="edu.wctc.spring.beans.Book">
+        <!-- Setter injection -->
+        <property name="loggerService" ref="myloggerService"/>
+
+        <!-- Setter Inject literal values from properties file -->
+        <property name="bookid" value="${b.bookid}"/>
+        <property name="isbn" value="${b.isbn}"/>
+        <property name="title" value="${b.title}"/>
+        <property name="category" value="${b.category}"/>
+    </bean>
+</beans>
